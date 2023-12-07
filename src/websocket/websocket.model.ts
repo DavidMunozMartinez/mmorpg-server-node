@@ -6,10 +6,10 @@ export enum WSEvents {
   ENVIRONMENT,
 }
 
-export type InputWSEvent = {
-  eventType: number;
-  subEventType: number;
-  data: any;
+export interface InputWSEvent {
+  eventType: WSEvents
+  subEventType: number
+  data: any
 }
 
 // export type PlayerLiveConnection = ServerWebSocket<{ playerId: string }>

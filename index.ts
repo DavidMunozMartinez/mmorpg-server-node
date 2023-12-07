@@ -1,13 +1,14 @@
-import { ServerService } from "./src/api/server.service";
+import { ServerService } from './src/api/server.service'
 // import { initDBConnections as initDBConnection } from "./src/db.handler";
-import { WebSocketService } from "./src/websocket/websocket.service";
-require('dotenv').config();
+import { WebSocketService } from './src/websocket/websocket.service'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
-function init() {
-  WebSocketService.init();
-  ServerService.init();
+function init () {
+  WebSocketService.init()
+  ServerService.init()
 
   // initDBConnection();
 }
 
-init();
+init()

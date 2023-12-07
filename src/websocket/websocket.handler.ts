@@ -1,17 +1,17 @@
-import { handlePlayerEvents } from "../player/player-event.handler";
-import { InputWSEvent, WSEvents } from "./websocket.model";
+import { handlePlayerEvents } from '../player/player-event.handler'
+import { type InputWSEvent, WSEvents } from './websocket.model'
 
 /**
  * Recieve websocket events from clients
  */
-export function handleWSEvent(event: InputWSEvent) {
+export function handleWSEvent (event: InputWSEvent) {
   switch (event.eventType) {
     case WSEvents.PLAYER:
-      handlePlayerEvents(event);
-      break;
+      handlePlayerEvents(event)
+      break
     case WSEvents.CREATURE:
-      break;
+      break
     case WSEvents.ENVIRONMENT:
-      break;
+      break
   }
 }

@@ -1,0 +1,12 @@
+{
+  "env": {
+      "es2021": true
+  },
+  "extends": "standard-with-typescript",
+  "parserOptions": {
+      "sourceType": "module"
+  },
+  "rules": {
+      "@typescript-eslint/explicit-function-return-type": "off"
+  }
+}

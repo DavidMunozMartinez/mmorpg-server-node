@@ -1,39 +1,38 @@
-import { PLAYER_EVENTS } from "./player.model";
-import { InputWSEvent } from "../websocket/websocket.model";
-import { WebSocketService } from "../websocket/websocket.service";
-import { send } from "process";
+import { PLAYER_EVENTS } from './player.model'
+import { type InputWSEvent } from '../websocket/websocket.model'
+import { WebSocketService } from '../websocket/websocket.service'
 
-export function handlePlayerEvents(event: InputWSEvent) {
+export function handlePlayerEvents (event: InputWSEvent) {
   switch (event.subEventType) {
     case PLAYER_EVENTS.MOVED:
-      applyMoveEvent(event);
-      break;
+      applyMoveEvent(event)
+      break
     case PLAYER_EVENTS.CONNECTED:
-      sendToAllExcept(event.data.applyTo, event);
-      break;
+      sendToAllExcept(event.data.applyTo, event)
+      break
     case PLAYER_EVENTS.DISCONNECTED:
-      sendToAllExcept(event.data.applyTo, event);
-      break;
+      sendToAllExcept(event.data.applyTo, event)
+      break
   }
 }
 
-function applyMoveEvent(event: InputWSEvent) {
-  const playerId = event.data.applyTo;
-  const player = WebSocketService.livePlayers.get(playerId);
-  player?.positionUpdate(event);
-  sendToAll(event);
+function applyMoveEvent (event: InputWSEvent) {
+  const playerId = event.data.applyTo
+  const player = WebSocketService.livePlayers.get(playerId)
+  player?.positionUpdate(event)
+  sendToAll(event)
 }
 
-function sendToAll(event: InputWSEvent) {
+function sendToAll (event: InputWSEvent) {
   WebSocketService.livePlayers.forEach((player) => {
-    player.socket.send(JSON.stringify(event));
-  });
+    player.socket.send(JSON.stringify(event))
+  })
 }
 
-function sendToAllExcept(ids: string[], event: InputWSEvent) {
+function sendToAllExcept (ids: string[], event: InputWSEvent) {
   WebSocketService.livePlayers.forEach((player) => {
-    if (ids.indexOf(player.id) === -1) {
-      player.socket.send(JSON.stringify(event));
-    } 
-  });
+    if (!ids.includes(player.id)) {
+      player.socket.send(JSON.stringify(event))
+    }
+  })
 }
