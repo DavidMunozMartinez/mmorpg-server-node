@@ -4,7 +4,9 @@
   },
   "extends": "standard-with-typescript",
   "parserOptions": {
-      "sourceType": "module"
+      "parser": "@typescript-eslint/parser",
+      "sourceType": "module",
+      "project": "./tsconfig.json"
   },
   "rules": {
       "@typescript-eslint/explicit-function-return-type": "off"
