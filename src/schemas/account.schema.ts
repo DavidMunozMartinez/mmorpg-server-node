@@ -2,21 +2,18 @@ import { model, Schema, type InferSchemaType } from 'mongoose'
 import { hashSync, genSaltSync, compareSync } from 'bcrypt-nodejs'
 
 const accountSchema = new Schema({
-  email: String,
-  password: String
+  email: { type: String, required: true },
+  password: { type: String, required: true }
 }, {
   methods: {
-    hashPassword,
-    validatePassword: (password: string) => {
-      // TODO: Fix this TS thing
-      // return compareSync(password, (this as any).password)
+    hashPassword (password: string) {
+      return hashSync(password, genSaltSync(8))
+    },
+    validatePassword (password: string) {
+      return compareSync(password, this.password)
     }
   }
 })
-
-function hashPassword (password: string) {
-  return hashSync(password, genSaltSync(8))
-}
 
 export type AccountType = InferSchemaType<typeof accountSchema>
 export const AccountModel = model('accounts', accountSchema)
